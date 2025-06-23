@@ -14,7 +14,7 @@ const AcCard = ({ handleClick, productType }) => {
 const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/ac', {
+      const res = await axios.get(`${process.env.API_URL}/api/ac`, {
         headers: {
           Accept: 'application/json',
         },

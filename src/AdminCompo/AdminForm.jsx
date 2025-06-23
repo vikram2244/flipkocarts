@@ -26,7 +26,7 @@ const AdminForm = ({ names }) => {
   const formData = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://flipko-springboot-1.onrender.com/api/adminedit/${names}`, data);
+      await axios.post(`${process.env.API_URL}/api/adminedit/${names}`, data);
       alert("Tool added successfully!");
       setData({
         id: '',

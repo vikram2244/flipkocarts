@@ -11,7 +11,7 @@ const Computers = ({ handleClick,productType }) => {
   const { id } = useParams();
 
   const handleData = () => {
-    axios.get('https://flipko-springboot-1.onrender.com/api/computers', {
+    axios.get(`${process.env.API_URL}/api/computers`, {
       headers: {
         Accept: 'application/json'
       }
