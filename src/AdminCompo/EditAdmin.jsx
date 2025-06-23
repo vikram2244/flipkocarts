@@ -43,7 +43,7 @@ const EditAdmin = () => {
         if (!endpoint) {
           throw new Error(`Invalid product type: ${names}`);
         }
-        const res = await axios.get(`https://flipko-springboot-1.onrender.com/api${endpoint}`, {
+        const res = await axios.get(`https://flipko-springboot-1.onrender.com/api/${endpoint}`, {
           headers: { Accept: 'application/json' }
         });
         const productData = Array.isArray(res.data) ? res.data.find(item => String(item.id) === String(id)) : null;
