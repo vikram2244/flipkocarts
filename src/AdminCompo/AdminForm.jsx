@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AdminForm = ({ names }) => {
   const [data, setData] = useState({
@@ -12,6 +13,7 @@ const AdminForm = ({ names }) => {
     category: '',
     description: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,7 @@ const AdminForm = ({ names }) => {
         category: '',
         description: ''
       });
+      navigate(`/${names}`)
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to add tool.");

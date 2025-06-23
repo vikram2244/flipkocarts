@@ -60,6 +60,7 @@ const EditAdmin = () => {
           category: productData.category || '',
           description: productData.description || ''
         });
+        navigate(`${names}/${id}`);
       } catch (err) {
         console.error('Error fetching product:', err);
         setError(err.message || 'Failed to load product data');
