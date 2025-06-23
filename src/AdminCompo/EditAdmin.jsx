@@ -88,7 +88,6 @@ const EditAdmin = () => {
       }
       await axios.put(`https://flipko-springboot-1.onrender.com/api/editadmin/${names}/${id}`, data);
       alert('Product updated successfully!');
-      navigate(`/${names}/${id}`); // Redirect to product detail page
     } catch (error) {
       console.error('Error updating product:', error.response?.data || error.message);
       alert(`Failed to update product: ${error.response?.data?.message || error.message}`);
