@@ -64,7 +64,7 @@ const SignIn = ({ handleLogin }) => {
         localStorage.setItem('userId', userId);
         localStorage.setItem('userEmail', email);
         handleLogin();
-        navigate(`/home/${encodeURIComponent(email)}`);
+        navigate(`/${encodeURIComponent(email)}`);
       } else {
         alert('Invalid email or password');
       }
