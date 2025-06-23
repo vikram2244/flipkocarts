@@ -13,7 +13,7 @@ const BooksCard = ({ handleClick, productType }) => {
 const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${process.env.API_URL}/api/books`, {
+      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/books', {
         headers: {
           Accept: 'application/json',
         },
