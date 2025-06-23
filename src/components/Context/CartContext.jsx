@@ -57,7 +57,7 @@ export const CartProvider = ({ children }) => {
         throw new Error(`Invalid product type: ${productType}`);
       }
       console.log('Adding to cart:', { userId: apiUserId, productId: item.id, productType });
-      const response = await axios.post('http://localhost:8080/api/add', { 
+      const response = await axios.post('https://flipko-springboot-1.onrender.com/api/add', { 
         brand: item.brand,
         model: item.model,
         price: Number(item.price),
@@ -116,7 +116,7 @@ export const CartProvider = ({ children }) => {
         throw new Error(`Invalid product type: ${item.productType}`);
       }
       console.log('Removing from cart:', { userId: apiUserId, productId: item.productId, productType: item.productType });
-      await axios.post('http://localhost:8080/api/cart/update', {
+      await axios.post('https://flipko-springboot-1.onrender.com/api/cart/update', {
         userId: apiUserId,
         productId: item.productId,
         productType: item.productType,
@@ -158,7 +158,7 @@ export const CartProvider = ({ children }) => {
         throw new Error(`Invalid product type: ${item.productType}`);
       }
       console.log('Removing item completely:', { userId: apiUserId, productId: item.productId, productType: item.productType });
-      await axios.delete(`http://localhost:8080/api/cart/remove?userId=${apiUserId}&productId=${item.productId}&productType=${item.productType}`, {
+      await axios.delete(`https://flipko-springboot-1.onrender.com/api/cart/remove?userId=${apiUserId}&productId=${item.productId}&productType=${item.productType}`, {
         headers: { 'Content-Type': 'application/json' }
       });
 

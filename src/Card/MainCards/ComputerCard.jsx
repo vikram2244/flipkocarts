@@ -32,7 +32,7 @@ const ComputerCard = ({ handleClick }) => {
   try {
     const item = {
       ...gadget,
-      productType: gadget.product?.toLowerCase() || 'computers' // Use product if available, else 'computers'
+      productType: gadget.product?.toLowerCase() || 'computers' 
     };
     console.log('Adding to cart from ComputerCard:', item);
     await addToCart(item);

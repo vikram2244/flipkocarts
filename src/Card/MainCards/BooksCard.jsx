@@ -34,7 +34,7 @@ const handleData = async () => {
       try {
         const item = {
           ...gadget,
-          productType: productType.toLowerCase() || gadget.product?.toLowerCase() // Prefer prop, fallback to product
+          productType: productType.toLowerCase() || gadget.product?.toLowerCase()
         };
         console.log('Adding to cart from MainCard:', item);
         await addToCart(item);
