@@ -6,9 +6,12 @@ import { Link, useParams } from 'react-router-dom';
 
 const Ac = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const { id } = useParams();
 
   const handleData = () => {
+    setLoading(true);
     axios
       .get('https://flipko-springboot-1.onrender.com/api/ac', {
         headers: {
@@ -18,6 +21,7 @@ const Ac = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setAcData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -40,6 +44,8 @@ const Ac = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
