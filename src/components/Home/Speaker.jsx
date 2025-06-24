@@ -18,6 +18,7 @@ const Speaker = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setSpeakerData(Array.isArray(res.data) ? res.data : res.data.data || []);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };
