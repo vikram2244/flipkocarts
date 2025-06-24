@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../Context/CartContext';
 
 const Nav = ({ handleLogout }) => {
   const { totalItems, userId, setUserId, userEmail, setUserEmail } = useCart();
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('https://my-json-api-k70n.onrender.com/');
+        const data = await response.json();
+        const allProducts = Object.values(data).flat();
+        setProducts(allProducts);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch products');
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const uniqueBrands = [...new Set(products
+    .filter(product => product.brand)  
+    .map(product => product.brand))];
+  const filteredBrands = uniqueBrands.filter(brand =>
+    brand.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const onLogout = () => {
     setUserId(null);
@@ -19,6 +50,34 @@ const Nav = ({ handleLogout }) => {
         <Link to={userEmail ? `/${encodeURIComponent(userEmail)}` : '/home'}>
           <h1 className="logo">FlipKOO</h1>
         </Link>
+        <div>
+          <div className="">      
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search brands (e.g., LG, Apple, Nike)..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-input"
+        />
+      </div>
+
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
+
+      <div className="brand-grid">
+        {searchTerm && filteredBrands.length > 0 ? (
+          filteredBrands.map((brand, index) => (
+            <div key={index} className="brand-card">
+              <p>{brand}</p>
+            </div>
+          ))
+        ) : (
+          searchTerm && !loading && <p className="no-results">No brands found</p>
+        )}
+      </div>
+    </div>
+        </div>
         <div className="cart-section">
           {userId ? (
             <button onClick={onLogout} className="cart-link">
