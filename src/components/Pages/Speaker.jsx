@@ -6,9 +6,12 @@ import { Link, useParams } from 'react-router-dom';
 
 const Speaker = ({ handleClick, productType }) => {
   const [speakerData, setSpeakerData] = useState([]);
+  const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
   const { id } = useParams();
 
   const handleData = () => {
+    setLoading(true);
     axios
       .get('https://flipko-springboot-1.onrender.com/api/speakers', {
         headers: {
@@ -40,11 +43,13 @@ const Speaker = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
       <div>
-        <h1>Speakers</h1>
+        <h1>SPEAKERS</h1>
       </div>
       <div>
         <button>

@@ -6,9 +6,13 @@ import { Link, useParams } from 'react-router-dom';
 
 const Furniture = ({ handleClick, productType }) => {
   const [furnitureData, setFurnitureData] = useState([]);
+  const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+  
   const { id } = useParams();
 
   const handleData = () => {
+    setLoading(true);
     axios
       .get('https://flipko-springboot-1.onrender.com/api/furniture', {
         headers: {
@@ -40,11 +44,13 @@ const Furniture = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
       <div>
-        <h1>Furniture</h1>
+        <h1>FURNITURE</h1>
       </div>
       <div>
         <button>

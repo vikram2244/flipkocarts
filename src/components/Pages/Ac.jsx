@@ -50,7 +50,7 @@ const Ac = ({ handleClick, productType }) => {
   return (
     <>
       <div>
-        <h1>ACs</h1>
+        <h1>AC'S</h1>
       </div>
       <div>
         <button>

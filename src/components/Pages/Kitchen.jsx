@@ -6,9 +6,12 @@ import { Link, useParams } from 'react-router-dom';
 
 const Kitchen = ({ handleClick, productType }) => {
   const [kitchenData, setKitchenData] = useState([]);
+  const [loading,setLoading]=useState(true);
+  const [error,setError]=useState('');
   const { id } = useParams();
 
   const handleData = () => {
+    setLoading(true);
     axios
       .get('https://flipko-springboot-1.onrender.com/api/kitchen', {
         headers: {
@@ -18,6 +21,7 @@ const Kitchen = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setKitchenData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -40,11 +44,13 @@ const Kitchen = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+  if(loading) return <div>Loading Product Details.......</div>
+  if(error) return <div>{error}</div>
 
   return (
     <>
       <div>
-        <h1>Kitchen</h1>
+        <h1>KITCHEN</h1>
       </div>
       <div>
         <button>

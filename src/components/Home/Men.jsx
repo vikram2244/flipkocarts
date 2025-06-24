@@ -38,7 +38,7 @@ const Men = ({handleClick}) => {
   return (
     <>
     <div>
-      <h1>Mens</h1>
+      <h1>Mens Wear</h1>
     </div>
     <div className='mobiles-grid'>
     {Array.isArray(menData) && menData.slice(0,4).map((data,index)=>(
