@@ -7,7 +7,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 const Books = ({handleClick}) => {
    const [booksData, setBooksData] = useState([]);
-
+   const [loading,setLoading]=useState(true);
+    const [error,setError]=useState('');
   const handleData = () => {
     axios.get('https://flipko-springboot-1.onrender.com/api/books', {
       headers: {
@@ -17,6 +18,7 @@ const Books = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setBooksData(res.data);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };
@@ -30,6 +32,8 @@ const Books = ({handleClick}) => {
                addToCart(item);
                handleClick(); 
              };
+             if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
   return (
     <>
      <div>

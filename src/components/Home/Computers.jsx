@@ -22,6 +22,7 @@ const Computers = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setComputerData(res.data);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };

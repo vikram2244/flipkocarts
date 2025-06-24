@@ -5,8 +5,11 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 const Men = ({handleClick}) => {
   const [menData, setMenData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const handleData = () => {
+    setLoading(true);
     axios.get('https://flipko-springboot-1.onrender.com/api/men', {
       headers: {
         Accept: 'application/json'
@@ -15,6 +18,7 @@ const Men = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setMenData(res.data);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };
@@ -28,6 +32,9 @@ const Men = ({handleClick}) => {
                addToCart(item);
                handleClick(); 
              };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <>
     <div>

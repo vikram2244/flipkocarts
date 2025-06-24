@@ -7,8 +7,11 @@ import axios from 'axios';
 
 const Fridge = ({handleClick}) => {
   const [fridgeData, setFridgeData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const handleData = () => {
+    setLoading(true);
     axios.get('https://flipko-springboot-1.onrender.com/api/fridges', {
       headers: {
         Accept: 'application/json'
@@ -17,6 +20,7 @@ const Fridge = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setFridgeData(res.data);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };
@@ -30,6 +34,9 @@ const Fridge = ({handleClick}) => {
                addToCart(item);
                handleClick(); 
              };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <>
     <div>

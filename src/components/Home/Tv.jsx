@@ -5,8 +5,10 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 const Tv = ({handleClick}) => {
   const [tvData, setTvData] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const handleData = () => {
+    setLoading(true);
     axios.get('https://flipko-springboot-1.onrender.com/api/tvs', {
       headers: {
         Accept: 'application/json'
@@ -15,6 +17,7 @@ const Tv = ({handleClick}) => {
     .then(res => {
       console.log(res);
       setTvData(Array.isArray(res.data) ? res.data : res.data.data || []);
+      setLoading(false);
     })
     .catch(err => console.log(err));
   };
@@ -28,6 +31,8 @@ const Tv = ({handleClick}) => {
                addToCart(item);
                handleClick(); 
              };
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
   return (
     <>
      <div>
