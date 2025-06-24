@@ -8,8 +8,12 @@ import { useEffect } from 'react';
 
 const Computers = ({handleClick}) => {
   const [computerData, setComputerData] = useState([]);
+  const [loading,setLoading]=useState(true);
+  const [error,setError]=useState('');
+  
 
   const handleData = () => {
+    setLoading(true);
     axios.get('https://flipko-springboot-1.onrender.com/api/computers', {
       headers: {
         Accept: 'application/json'
@@ -31,6 +35,8 @@ const Computers = ({handleClick}) => {
                addToCart(item);
                handleClick(); 
              };
+             if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
   return (
     <>
     <div>
