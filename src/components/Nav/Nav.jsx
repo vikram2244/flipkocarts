@@ -26,7 +26,7 @@ const Nav = ({ handleLogout }) => {
   }, []);
 
   const uniqueBrands = [...new Set(products
-    .filter(product => product.brand)  
+    .filter(product => product.brand)
     .map(product => product.brand))];
   const filteredBrands = uniqueBrands.filter(brand =>
     brand.toLowerCase().includes(searchTerm.toLowerCase())
@@ -51,32 +51,33 @@ const Nav = ({ handleLogout }) => {
           <h1 className="logo">FlipKOO</h1>
         </Link>
         <div>
-          <div className="">      
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search brands (e.g., LG, Apple, Nike)..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-input"
-        />
-      </div>
-
-      {loading && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
-
-      <div className="brand-grid">
-        {searchTerm && filteredBrands.length > 0 ? (
-          filteredBrands.map((brand, index) => (
-            <div key={index} className="brand-card">
-              <p>{brand}</p>
+          <div className="">
+            <div className="search-container">
+              <input
+                type="text"
+                placeholder="Search brands (e.g., LG, Apple, Nike)..."
+                value={searchTerm}
+                onChange={handleSearch}
+                className="search-input"
+              />
             </div>
-          ))
-        ) : (
-          searchTerm && !loading && <p className="no-results">No brands found</p>
-        )}
-      </div>
-    </div>
+
+            {loading && <p className="loading">Loading...</p>}
+            {error && <p className="error">{error}</p>}
+
+            <div className="brand-grid">
+              {searchTerm && filteredBrands.length > 0 ? (
+                filteredBrands.map((brand, index) => (
+                  <Link to={`/brand/${encodeURIComponent(brand)}`} key={index} className="brand-card">
+                    {brand}
+                  </Link>
+
+                ))
+              ) : (
+                searchTerm && !loading && <p className="no-results">No brands found</p>
+              )}
+            </div>
+          </div>
         </div>
         <div className="cart-section">
           {userId ? (
