@@ -29,7 +29,7 @@ const Home = ({ handleClick }) => {
       <div><Speaker handleClick={handleClick} productType="speakers" /></div>
       <div><Tv handleClick={handleClick} productType="tvs" /></div>
       <div><Watch handleClick={handleClick} productType="watches" /></div>
-      <div><ProData handleClick={handleClick} /></div>
+      {/* <div><ProData handleClick={handleClick} /></div> */}
       <div><Books handleClick={handleClick} productType="books" /></div>
       <div><Kitchen handleClick={handleClick} productType="kitchen" /></div>
       <div><Ac handleClick={handleClick} productType="ac" /></div>
