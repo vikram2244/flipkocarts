@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import { useAuth } from '../../components/Context/AuthProvider';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
+import MobilesPage from '../../components/Home/MobilesPage';
 
 const MainCard = ({ handleClick, productType }) => {
   const [data, setData] = useState([]);
@@ -82,7 +83,7 @@ const MainCard = ({ handleClick, productType }) => {
   }
 
   return (
-    <div className="container">
+    <>    <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${productType}/${findGadget.id}`}>
           <button>Edit</button>
@@ -102,6 +103,11 @@ const MainCard = ({ handleClick, productType }) => {
         </button>
       </div>
     </div>
+    <div>
+      <MobilesPage />
+    </div>
+    </>
+
   );
 };
 
