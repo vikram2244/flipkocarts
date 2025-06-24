@@ -1,46 +1,52 @@
-import React, { useEffect, useState } from 'react'
-import Cardss from '../../Card/Cardss'
-import { mobileData } from '../Data/mobiles'
+import React, { useEffect, useState } from 'react';
+import Cardss from '../../Card/Cardss';
 import { useCart } from "../../components/Context/CartContext";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-
-const MobilesPage = ({ handleClick,productType }) => {
-  const [mobileData, setMobileData] = useState([]);
-    const { id } = useParams();
+const MobilesPage = ({ handleClick, productType }) => {
+  const [mobiles, setMobiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { id } = useParams();
+  const { addToCart } = useCart();
 
   const handleData = () => {
+    setLoading(true);
     axios.get('https://flipko-springboot-1.onrender.com/api/mobiles', {
-      headers: {
-        Accept: 'application/json'
-      }
+      headers: { Accept: 'application/json' }
     })
     .then(res => {
-      console.log(res);
-      setMobileData(res.data);
+      setMobiles(res.data);
+      setLoading(false);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      setError('Failed to load mobile data.');
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
     handleData(); 
   }, [id, productType]);
-       const { addToCart } = useCart();
-   const handleAddToCart = async (gadget) => {
-  try {
-    const item = {
-      ...gadget,
-      productType: productType.toLowerCase() || gadget.product?.toLowerCase() 
-    };
-    console.log('Adding to cart from MainCard:', item);
-    await addToCart(item);
-    handleClick?.();
-  } catch (err) {
-    console.error('Error adding to cart in MainCard:', err);
-  }
-};
 
+  const handleAddToCart = async (gadget) => {
+    try {
+      const item = {
+        ...gadget,
+        productType: productType?.toLowerCase() || gadget.product?.toLowerCase()
+      };
+      console.log('Adding to cart from MainCard:', item);
+      await addToCart(item);
+      if (handleClick) handleClick();
+    } catch (err) {
+      console.error('Error adding to cart in MainCard:', err);
+    }
+  };
+
+  if (loading) return <div>Loading product details...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
@@ -48,7 +54,7 @@ const MobilesPage = ({ handleClick,productType }) => {
         <h1>Mobiles</h1>
       </div>
       <div className='mobiles-grid'>
-        {Array.isArray(mobileData) && mobileData.slice(0, 4).map((data, index) => (
+        {Array.isArray(mobiles) && mobiles.slice(0, 4).map((data, index) => (
           <Cardss
             key={index}
             id={data.id}
@@ -60,12 +66,10 @@ const MobilesPage = ({ handleClick,productType }) => {
             product={data.product}
             handleClick={() => handleAddToCart(data)}
           />
-        )
-        )
-        }
+        ))}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MobilesPage
+export default MobilesPage;
