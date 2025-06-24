@@ -21,6 +21,7 @@ const Watch = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setWatchData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

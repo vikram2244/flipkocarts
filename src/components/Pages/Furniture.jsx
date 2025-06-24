@@ -22,6 +22,7 @@ const Furniture = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setFurnitureData(res.data);
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   };

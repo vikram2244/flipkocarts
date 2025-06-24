@@ -21,6 +21,7 @@ const Speaker = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setSpeakerData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

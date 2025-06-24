@@ -21,6 +21,7 @@ const Tv = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setTvData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

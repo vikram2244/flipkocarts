@@ -21,6 +21,7 @@ const MobilesPage = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setMobileData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

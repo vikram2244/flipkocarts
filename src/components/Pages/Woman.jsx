@@ -21,6 +21,7 @@ const Woman = ({ handleClick, productType }) => {
       .then((res) => {
         console.log(res);
         setWomanData(res.data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
