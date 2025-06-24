@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
+import Watch from '../../components/Home/Watch';
 
 const WatchCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -67,6 +68,7 @@ const handleData = async () => {
   }
 
   return (
+    <>
     <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
@@ -87,6 +89,10 @@ const handleData = async () => {
         </button>
       </div>
     </div>
+    <div>
+      <Watch />
+    </div>
+    </>
   );
 };
 

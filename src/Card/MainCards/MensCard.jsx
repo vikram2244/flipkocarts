@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
-import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
+import Men from '../../components/Home/Men';
 
 const MensCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -62,7 +62,7 @@ const MensCard = ({ handleClick, productType }) => {
   }
 
   return (
-    <div className="container">
+    <>    <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
           <button>Edit</button>
@@ -82,6 +82,9 @@ const MensCard = ({ handleClick, productType }) => {
         </button>
       </div>
     </div>
+    <div><Men /></div>
+    </>
+
   );
 };
 

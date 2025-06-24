@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
+import MobilesPage from '../../components/Home/Computers';
+import Computers from '../../components/Home/Computers';
 
 const ComputerCard = ({ handleClick }) => {
   const [computerData, setComputerData] = useState([]);
@@ -61,6 +63,7 @@ const ComputerCard = ({ handleClick }) => {
   }
 
   return (
+    <>
     <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
@@ -81,6 +84,10 @@ const ComputerCard = ({ handleClick }) => {
         </button>
       </div>
     </div>
+    <div>
+      <Computers />
+    </div>
+    </>
   );
 };
 

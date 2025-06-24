@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
+import Woman from '../../components/Home/Woman';
 
 
 const WomanCard = ({ handleClick, productType }) => {
@@ -64,6 +65,7 @@ const WomanCard = ({ handleClick, productType }) => {
   }
 
   return (
+    <>x
     <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
@@ -84,6 +86,9 @@ const WomanCard = ({ handleClick, productType }) => {
         </button>
       </div>
     </div>
+    <div><Woman /></div>
+
+    </>
   );
 };
 

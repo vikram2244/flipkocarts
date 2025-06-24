@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
+import Books from '../../components/Home/Books';
 // import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 
 const BooksCard = ({ handleClick, productType }) => {
@@ -62,6 +63,7 @@ const handleData = async () => {
   }
 
   return (
+    <>
     <div className="container">
       <div className="card-footer">
         <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
@@ -82,6 +84,8 @@ const handleData = async () => {
         </button>
       </div>
     </div>
+    <div><Books /></div>
+    </>
   );
 };
 
