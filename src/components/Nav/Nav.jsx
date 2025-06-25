@@ -51,7 +51,7 @@ const Nav = ({ handleLogout }) => {
           <h1 className="logo">FlipKOO</h1>
         </Link>
         <div>
-          <div className="">
+          <div className="search-input">
             <div className="search-container">
               <input
                 type="text"
@@ -85,16 +85,15 @@ const Nav = ({ handleLogout }) => {
               Sign Out
             </button>
           ) : (
-            <Link to="/login" className="cart-link in">
+            <Link to="/login" className="cart-link">
               Sign In
             </Link>
           )}
-        </div>
-        <div className="cart-section">
-          <Link to="/cart" className="cart-link">
+          <Link to="/cart" className="ins">
             🛒 ({totalItems})
           </Link>
         </div>
+          
       </div>
       <div className="nav-items">
         <Link to="/mobiles"><p className="nav-item">Mobiles</p></Link>
