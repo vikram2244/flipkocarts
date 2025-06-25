@@ -29,7 +29,7 @@ const Cardss = ({ id, name, product, title, description, amount, image, handleCl
         </div>
       </Link>
       <div className="card-footer">
-        <span className="card-price">${amount}</span>
+        <span className="card-price">{amount}/-</span>
         <button className="card-button" onClick={handleClick}>
           Add to Cart
         </button>
