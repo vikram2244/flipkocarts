@@ -33,7 +33,7 @@ a:hover {
   color: var(--primary-hover);
 }
 
-/* ================== ENHANCED NAVIGATION ================== */
+/* Navigation */
 .nav-container {
   background-color: var(--nav-bg);
   color: var(--nav-text);
@@ -46,11 +46,16 @@ a:hover {
 
 .nav-content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   max-width: 1280px;
   margin: 0 auto;
-  position: relative;
+}
+
+.logo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .logo {
@@ -58,54 +63,10 @@ a:hover {
   font-weight: 700;
   color: #00c2ff;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-icon {
-  font-size: 2rem;
-}
-
-.nav-items {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.nav-item {
-  padding: 0.5rem 1rem;
-  color: white;
-  border-radius: 4px;
-  transition: all 0.3s;
-  font-size: 1rem;
-  position: relative;
-}
-
-.nav-item:hover {
-  color: #00c2ff;
-}
-
-.nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background: #00c2ff;
-  transition: width 0.3s ease;
-}
-
-.nav-item:hover::after {
-  width: 70%;
 }
 
 .cart-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-block;
   padding: 0.5rem 1rem;
   background-color: var(--primary-color);
   color: white;
@@ -117,116 +78,33 @@ a:hover {
   background-color: var(--primary-hover);
 }
 
-.cart-count {
-  background-color: #ff4444;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
+.nav-items {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
-  font-size: 0.7rem;
-  margin-left: 0.3rem;
 }
 
-/* Mobile Menu Button */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
+.nav-item {
+  padding: 0.5rem 1rem;
   color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: all 0.3s;
+  font-size: 0.9rem;
 }
 
-/* Mobile Navigation */
-@media (max-width: 768px) {
-  .nav-content {
-    flex-wrap: wrap;
-  }
-  
-  .menu-toggle {
-    display: block;
-    order: 1;
-  }
-  
-  .logo {
-    order: 2;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .cart-link {
-    order: 3;
-  }
-  
-  .nav-items {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    padding: 1rem 0;
-    order: 4;
-    background-color: rgba(0, 0, 0, 0.9);
-    margin-top: 1rem;
-    border-radius: 8px;
-  }
-  
-  .nav-items.active {
-    display: flex;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  .nav-item {
-    width: 100%;
-    text-align: center;
-    padding: 0.8rem;
-  }
-  
-  .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .nav-item::after {
-    display: none;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.nav-item:hover {
+  background-color: var(--primary-color);
 }
 
-/* Desktop Enhancements */
-@media (min-width: 769px) {
-  .nav-items {
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .logo {
-    margin-right: 2rem;
-  }
-  
-  .cart-link {
-    margin-left: auto;
-  }
-}
-
-/* ================== REST OF YOUR EXISTING CSS ================== */
 /* Main Content Container */
 .main-container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
 }
+
 
 .cart-container {
   display: flex;
@@ -272,14 +150,12 @@ a:hover {
   justify-content: center;
   padding: 10px;
 }
-
 .card-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
-
 .card-container:hover .card-img {
   transform: scale(1.05);
 }
@@ -328,7 +204,6 @@ a:hover {
   font-size: 16px;
   font-weight: bold;
 }
-
 .quantity-controls button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -359,7 +234,6 @@ a:hover {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-
 .card-footer button:hover {
   background-color: var(--danger-hover);
 }
@@ -375,7 +249,6 @@ a:hover {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-
 .card-button:hover {
   background-color: var(--primary-hover);
 }
@@ -406,7 +279,6 @@ a:hover {
   align-items: center;
   margin-bottom: 20px;
 }
-
 .img-container img {
   max-width: 100%;
   height: auto;
@@ -497,8 +369,10 @@ a:hover {
   background-color: #4d50cc;
 }
 
+
 /* ...........signup................................................................ */
 /* SignUp.css */
+
 .signup-container {
   max-width: 400px;
   margin: 50px auto;
@@ -538,12 +412,12 @@ a:hover {
   border-color: #007bff;
   outline: none;
 }
-
 .error {
   color: red;
   font-size: 14px;
   margin-top: 4px;
 }
+
 
 .signup-container button {
   width: 100%;
@@ -562,6 +436,7 @@ a:hover {
 }
 
 /* SignIn.css */
+
 .signin-container {
   max-width: 400px;
   margin: 60px auto;
@@ -619,10 +494,9 @@ a:hover {
   background-color: #0056b3;
 }
 
-.in {
+.in{
   margin-left: 600px;
 }
-
 /* ------------------- RESPONSIVE ------------------- */
 .quantity-btn {
   width: 30px;
@@ -675,6 +549,13 @@ a:hover {
     margin-bottom: 1rem;
   }
   
+  .nav-items {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
   .products-grid {
     grid-template-columns: 1fr;
   }
@@ -682,11 +563,6 @@ a:hover {
   .form-container {
     margin: 1rem;
     padding: 1rem;
-  }
-  
-  .in {
-    margin-left: 0;
-    text-align: center;
   }
 }
 
