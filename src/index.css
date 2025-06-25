@@ -510,6 +510,21 @@ a:hover {
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
+  .card-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+  #root {
+  max-width: max-content;
+  text-align: center;
+}
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
@@ -519,6 +534,21 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+  .card-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+  #root {
+  max-width: max-content;
+  text-align: center;
+}
   .nav-container {
     padding: 1rem;
   }
@@ -549,6 +579,21 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  .card-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+  #root {
+  max-width: max-content;
+  text-align: center;
+}
   .logo-section {
     flex-direction: column;
     gap: 1rem;
