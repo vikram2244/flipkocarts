@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Cardss from '../../Card/Cardss';
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
@@ -9,7 +9,9 @@ const Ac = ({ handleClick, productType }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { id } = useParams();
+  const { addToCart } = useCart();
 
+  // Fetch data from API
   const handleData = () => {
     setLoading(true);
     axios
@@ -23,19 +25,35 @@ const Ac = ({ handleClick, productType }) => {
         setAcData(res.data);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setError('Error fetching product data.');
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
     handleData();
   }, [id, productType]);
 
-  const { addToCart } = useCart();
+  // Filter data based on productType using useMemo
+  const filteredData = useMemo(() => {
+    if (!productType) return acData;
+    return acData.filter(
+      (item) =>
+        item.product &&
+        item.product.toLowerCase() === productType.toLowerCase()
+    );
+  }, [acData, productType]);
+
+  // Add to cart handler
   const handleAddToCart = async (gadget) => {
     try {
       const item = {
         ...gadget,
-        productType: (productType ? productType.toLowerCase() : gadget.product?.toLowerCase())
+        productType: productType
+          ? productType.toLowerCase()
+          : gadget.product?.toLowerCase(),
       };
       console.log('Adding to cart from MainCard:', item);
       await addToCart(item);
@@ -44,6 +62,7 @@ const Ac = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+
   if (loading) return <div>Loading product details...</div>;
   if (error) return <div>{error}</div>;
 
@@ -58,7 +77,7 @@ const Ac = ({ handleClick, productType }) => {
         </button>
       </div>
       <div className="mobiles-grid">
-        {acData.map((data, index) => (
+        {filteredData.map((data, index) => (
           <Cardss
             key={index}
             id={data.id}

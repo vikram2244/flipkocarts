@@ -51,7 +51,7 @@ const AdminForm = ({ names }) => {
       <h1>Admin</h1>
       <form onSubmit={formData}>
         <div><label>id :</label><input name="id" value={data.id} onChange={handleChange} /></div>
-        <div><label>product:</label><input name="product" value={names} onChange={handleChange} /></div>
+        <div><label>product:</label><input name="product" value={names} onChange={handleChange} disabled/></div>
         <div><label>image:</label><input name="image" value={data.image} onChange={handleChange} /></div>
         <div><label>brand:</label><input name="brand" value={data.brand} onChange={handleChange} /></div>
         <div><label>model:</label><input name="model" value={data.model} onChange={handleChange} /></div>
