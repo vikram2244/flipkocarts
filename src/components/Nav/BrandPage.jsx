@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useCart } from '../Context/CartContext';
+import { useCart } from '../Context/CartContext'; // Import CartContext for handleClick
 import Cardss from '../../Card/Cardss';
 
 const BrandPage = () => {
   const { brand } = useParams(); // Get the brand name from the URL
-  const { addToCart } = useCart(); // Use addToCart instead of handleAddToCart
+  const { handleAddToCart } = useCart(); // Assuming you have a function to add items to the cart
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,38 +15,20 @@ const BrandPage = () => {
       try {
         setLoading(true);
         const response = await fetch('https://my-json-api-k70n.onrender.com/');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
         const data = await response.json();
         const allProducts = Object.values(data).flat();
         const filteredProducts = allProducts.filter(
-          (product) => product.brand?.toLowerCase() === brand?.toLowerCase()
+          (product) => product.brand?.toLowerCase() === brand.toLowerCase()
         );
         setProducts(filteredProducts);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching products:', err.message);
-        setError('Failed to fetch products. Please try again later.');
+        setError('Failed to fetch products');
         setLoading(false);
       }
     };
     fetchProducts();
   }, [brand]);
-
-  // Handle add to cart with proper product mapping
-  const handleAddToCart = (product) => {
-    addToCart({
-      id: product.id,
-      brand: product.brand,
-      model: product.name || product.title, // Map name or title to model
-      price: product.amount, // Map amount to price
-      image: product.image || '',
-      category: product.product || product.category || 'unknown', // Fallback to 'unknown'
-      description: product.description || '',
-      productType: product.product || 'mobiles' // Use product field or default to 'mobiles'
-    });
-  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -60,8 +42,8 @@ const BrandPage = () => {
           <Cardss
             key={product.id}
             id={product.id}
-            name={product.name || product.title}
-            product={product.product}
+            name={product.name}
+            product={product.product} 
             title={product.title}
             description={product.description}
             amount={product.amount}
