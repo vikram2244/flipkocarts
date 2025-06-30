@@ -60,11 +60,11 @@ const BrandPage = () => {
           <Cardss
             key={product.id}
             id={product.id}
-            name={product.name || product.title}
+            name={product.product}
             product={product.product}
-            title={product.title}
-            description={product.description}
-            amount={product.amount}
+            title={product.brand}
+            description={product.category}
+            amount={product.price}
             image={product.image}
             handleClick={() => handleAddToCart(product)}
           />
