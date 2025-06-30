@@ -43,12 +43,12 @@ const BrandPage = () => {
             key={product.id}
             id={product.id}
             name={product.name}
-            product={product.product} 
+            product={product.product} // Assuming each product has a category field matching PRODUCT_TYPES
             title={product.title}
             description={product.description}
             amount={product.amount}
             image={product.image}
-            handleClick={() => handleAddToCart(product)}
+            handleClick={() => handleAddToCart(product)} // Pass the add-to-cart function
           />
         ))}
       </div>
