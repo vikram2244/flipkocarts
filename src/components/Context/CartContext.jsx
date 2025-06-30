@@ -180,6 +180,9 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + (item.quantity || 0),
     0
   );
+  const handleAddToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
 
   return (
     <CartContext.Provider
@@ -195,7 +198,8 @@ export const CartProvider = ({ children }) => {
         userId,
         setUserId,
         userEmail,
-        setUserEmail
+        setUserEmail,
+        handleAddToCart
       }}
     >
       {children}

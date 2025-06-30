@@ -34,6 +34,7 @@ import LogIn from './Register/SignInPage/SignIn';
 import AdminLogin from './Register/AdminSignIn/SiginIn';
 import AdminSignUp from './Register/AdminSignUp/SignUp';
 import EditAdmin from './AdminCompo/EditAdmin';
+import BrandPage from './components/Nav/BrandPage';
 
 function App() {
   const [value, setValue] = useState(0);
@@ -96,6 +97,8 @@ function App() {
         <Route path="/adminspeakers" element={<AdminForm names="speakers" />} />
         <Route path="/admintvs" element={<AdminForm names="tvs" />} />
         <Route path="/adminac" element={<AdminForm names="ac" />} />
+
+        <Route path="/brand/:brand" element={<BrandPage />} />
         <Route path="/editadmin/:names/:id" element={<EditAdmin />} />
         <Route path="/" element={<Navigate to={isLoggedIn ? "/home" : "/login"} />} />
       </Routes>

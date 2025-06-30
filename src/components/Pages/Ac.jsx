@@ -11,7 +11,6 @@ const Ac = ({ handleClick, productType }) => {
   const { id } = useParams();
   const { addToCart } = useCart();
 
-  // Fetch data from API
   const handleData = () => {
     setLoading(true);
     axios
@@ -36,7 +35,6 @@ const Ac = ({ handleClick, productType }) => {
     handleData();
   }, [id, productType]);
 
-  // Filter data based on productType using useMemo
   const filteredData = useMemo(() => {
     if (!productType) return acData;
     return acData.filter(
@@ -46,7 +44,6 @@ const Ac = ({ handleClick, productType }) => {
     );
   }, [acData, productType]);
 
-  // Add to cart handler
   const handleAddToCart = async (gadget) => {
     try {
       const item = {
