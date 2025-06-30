@@ -35,6 +35,7 @@ const Nav = ({ handleLogout }) => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+  setSearchTerm("");
 
   const onLogout = () => {
     setUserId(null);
