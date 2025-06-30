@@ -13,22 +13,7 @@ export const CartProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || null);
   const { user } = useAuth();
 
-  // Sync userId and userEmail with auth context
-  useEffect(() => {
-    if (user) {
-      setUserId(user.id || null);
-      setUserEmail(user.email || null);
-    } else {
-      setUserId(null);
-      setUserEmail(null);
-    }
-  }, [user]);
-
   const fetchCartItems = useCallback(async (userId) => {
-    if (!userId) {
-      setCartItems([]);
-      return;
-    }
     try {
       setLoading(true);
       setError(null);
@@ -54,7 +39,6 @@ export const CartProvider = ({ children }) => {
       fetchCartItems(userId);
     } else {
       localStorage.removeItem('userId');
-      setCartItems([]);
     }
     if (userEmail) {
       localStorage.setItem('userEmail', userEmail);
@@ -73,7 +57,7 @@ export const CartProvider = ({ children }) => {
         throw new Error(`Invalid product type: ${productType}`);
       }
       console.log('Adding to cart:', { userId: apiUserId, productId: item.id, productType });
-      const response = await axios.post('https://flipko-springboot-1.onrender.com/api/add', {
+      const response = await axios.post('https://flipko-springboot-1.onrender.com/api/add', { 
         brand: item.brand,
         model: item.model,
         price: Number(item.price),
@@ -117,7 +101,7 @@ export const CartProvider = ({ children }) => {
       });
     } catch (err) {
       console.error('Error adding to cart:', err.message, err.response?.data);
-      setError(`Failed to add item to cart: ${err.message}`);
+      setError(`Failed to add item to cart. Status: ${err.response?.status || 'Unknown'}`);
     } finally {
       setLoading(false);
     }
@@ -159,7 +143,7 @@ export const CartProvider = ({ children }) => {
       });
     } catch (err) {
       console.error('Error removing from cart:', err.message, err.response?.data);
-      setError(`Failed to update cart: ${err.message}`);
+      setError(`Failed to update cart. Status: ${err.response?.status || 'Unknown'}`);
     } finally {
       setLoading(false);
     }
@@ -186,7 +170,7 @@ export const CartProvider = ({ children }) => {
       console.log('Item removed completely');
     } catch (err) {
       console.error('Error removing item:', err.message, err.response?.data);
-      setError(`Failed to remove item from cart: ${err.message}`);
+      setError(`Failed to remove item from cart. Status: ${err.response?.status || 'Unknown'}`);
     } finally {
       setLoading(false);
     }
@@ -196,6 +180,9 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + (item.quantity || 0),
     0
   );
+  const handleAddToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
 
   return (
     <CartContext.Provider
@@ -211,7 +198,8 @@ export const CartProvider = ({ children }) => {
         userId,
         setUserId,
         userEmail,
-        setUserEmail
+        setUserEmail,
+        handleAddToCart
       }}
     >
       {children}
