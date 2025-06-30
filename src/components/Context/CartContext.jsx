@@ -180,7 +180,9 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + (item.quantity || 0),
     0
   );
-
+  const handleAddToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
   return (
     <CartContext.Provider
       value={{
