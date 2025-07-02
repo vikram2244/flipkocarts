@@ -3,6 +3,8 @@ import { speakerData } from '../Data/speaker'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Speaker = ({handleClick}) => {
   const [speakerData, setSpeakerData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const Speaker = ({handleClick}) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/speakers', {
+    axios.get(`${baseUrl}/api/speakers`, {
       headers: {
         Accept: 'application/json'
       }

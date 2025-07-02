@@ -4,6 +4,7 @@ import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import { useState } from 'react';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Fridge = ({handleClick}) => {
   const [fridgeData, setFridgeData] = useState([]);
@@ -12,7 +13,7 @@ const Fridge = ({handleClick}) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/fridges', {
+    axios.get(`${baseUrl}/api/fridges`, {
       headers: {
         Accept: 'application/json'
       }

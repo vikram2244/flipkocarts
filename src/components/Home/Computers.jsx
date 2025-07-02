@@ -5,6 +5,7 @@ import { useCart } from '../Context/CartContext';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Computers = ({handleClick}) => {
   const [computerData, setComputerData] = useState([]);
@@ -14,7 +15,7 @@ const Computers = ({handleClick}) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/computers', {
+    axios.get(`${baseUrl}/api/computers`, {
       headers: {
         Accept: 'application/json'
       }

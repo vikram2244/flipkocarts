@@ -5,7 +5,7 @@ import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Woman from '../../components/Home/Woman';
 import Loading from '../../components/Loading/Loading';
-
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const WomanCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -17,7 +17,7 @@ const WomanCard = ({ handleClick, productType }) => {
   const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/women', {
+      const res = await axios.get(`${baseUrl}/api/women`, {
         headers: {
           Accept: 'application/json',
         },
@@ -26,7 +26,7 @@ const WomanCard = ({ handleClick, productType }) => {
       setAcData(Array.isArray(res.data) ? res.data : res.data.data || []);
     } catch (err) {
       console.error('Error fetching data:', err);
-      setError('Failed to fetch computer data');
+      setError('Failed to fetch womens data');
     } finally {
       setLoading(false);
     }
@@ -34,7 +34,7 @@ const WomanCard = ({ handleClick, productType }) => {
 
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id,productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -48,9 +48,6 @@ const WomanCard = ({ handleClick, productType }) => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {

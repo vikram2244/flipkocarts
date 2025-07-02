@@ -3,6 +3,7 @@ import { furnitureData } from '../Data/furniture'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Furniture = ({handleClick}) => {
   const [furnitureData, setFurnitureData] = useState([]);
@@ -10,7 +11,7 @@ const Furniture = ({handleClick}) => {
   const [error, setError] = useState('');
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/furniture', {
+    axios.get(`${baseUrl}/api/furniture`, {
       headers: {
         Accept: 'application/json'
       }

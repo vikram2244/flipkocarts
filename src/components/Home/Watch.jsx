@@ -3,6 +3,7 @@ import { watchData } from '../Data/watch'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Watch = ({handleClick}) => {
   const [watchData, setwatchData] = useState([]);
@@ -11,7 +12,7 @@ const Watch = ({handleClick}) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/watches', {
+    axios.get(`${baseUrl}/api/watches`, {
       headers: {
         Accept: 'application/json'
       }

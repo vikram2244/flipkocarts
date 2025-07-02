@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Fridge from '../../components/Home/Fridge';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const FridgeCard = ({ handleClick, productType }) => {
   const [fridgeData, setFridgeData] = useState([]);
@@ -15,7 +16,7 @@ const FridgeCard = ({ handleClick, productType }) => {
 const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/fridges', {
+      const res = await axios.get(`${baseUrl}/api/fridges`, {
         headers: {
           Accept: 'application/json',
         },
@@ -32,7 +33,7 @@ const handleData = async () => {
 
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id,productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -46,10 +47,6 @@ const handleData = async () => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
-
   const findGadget = fridgeData.find(item => String(item.id) === String(id));
 
   if (loading) {

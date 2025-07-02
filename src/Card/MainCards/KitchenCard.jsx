@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Kitchen from '../../components/Home/Kitchen';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const KitchenCard = ({ handleClick, productType }) => {
   const [kitchenData, setKitchenData] = useState([]);
@@ -16,7 +17,7 @@ const KitchenCard = ({ handleClick, productType }) => {
  const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/kitchen', {
+      const res = await axios.get(`${baseUrl}/api/kitchen`, {
         headers: {
           Accept: 'application/json',
         },
@@ -32,7 +33,7 @@ const KitchenCard = ({ handleClick, productType }) => {
   };
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id, productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -46,9 +47,6 @@ const KitchenCard = ({ handleClick, productType }) => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
 
   const findGadget = kitchenData.find(item => String(item.id) === String(id));
 

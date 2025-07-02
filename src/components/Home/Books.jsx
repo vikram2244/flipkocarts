@@ -1,16 +1,17 @@
 import React from 'react'
-import { booksData } from '../Data/books'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Books = ({handleClick}) => {
    const [booksData, setBooksData] = useState([]);
    const [loading,setLoading]=useState(true);
     const [error,setError]=useState('');
   const handleData = () => {
-    axios.get('https://flipko-springboot-1.onrender.com/api/books', {
+    axios.get(`${baseUrl}/api/books`, {
       headers: {
         Accept: 'application/json'
       }

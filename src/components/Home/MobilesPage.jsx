@@ -3,6 +3,8 @@ import Cardss from '../../Card/Cardss';
 import { useCart } from "../../components/Context/CartContext";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+const baseUrl = import.meta.env.VITE_API_URL;
+
 
 const MobilesPage = ({ handleClick, productType }) => {
   const [mobiles, setMobiles] = useState([]);
@@ -13,7 +15,7 @@ const MobilesPage = ({ handleClick, productType }) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/mobiles', {
+    axios.get(`${baseUrl}/api/mobiles`, {
       headers: { Accept: 'application/json' }
     })
     .then(res => {

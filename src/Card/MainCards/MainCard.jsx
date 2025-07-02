@@ -6,6 +6,7 @@ import { useAuth } from '../../components/Context/AuthProvider';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import MobilesPage from '../../components/Home/MobilesPage';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const MainCard = ({ handleClick, productType }) => {
   const [data, setData] = useState([]);
@@ -41,7 +42,7 @@ const MainCard = ({ handleClick, productType }) => {
       if (!endpoint) {
         throw new Error('Invalid product type');
       }
-      const res = await axios.get(`https://flipko-springboot-1.onrender.com/api${endpoint}`, {
+      const res = await axios.get(`${baseUrl}/api${endpoint}`, {
         headers: { Accept: 'application/json' }
       });
       console.log('API Response:', res.data);

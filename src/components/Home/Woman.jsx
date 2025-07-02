@@ -3,6 +3,8 @@ import { womanData } from '../Data/woman'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Woman = ({handleClick}) => {
   const [womanData, setWomanData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const Woman = ({handleClick}) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/women', {
+    axios.get(`${baseUrl}/api/women`, {
       headers: {
         Accept: 'application/json'
       }

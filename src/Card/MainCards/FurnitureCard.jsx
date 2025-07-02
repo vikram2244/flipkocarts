@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Furniture from '../../components/Home/Furniture';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const FurnitureCard = ({ handleClick, productType }) => {
   const [furnitureData, setFurnitureData] = useState([]);
@@ -16,7 +17,7 @@ const FurnitureCard = ({ handleClick, productType }) => {
   const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/furniture', {
+      const res = await axios.get(`${baseUrl}/api/furniture`, {
         headers: {
           Accept: 'application/json',
         },
@@ -33,7 +34,7 @@ const FurnitureCard = ({ handleClick, productType }) => {
 
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id, productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -47,9 +48,6 @@ const FurnitureCard = ({ handleClick, productType }) => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
 
   const findGadget = furnitureData.find(item => String(item.id) === String(id));
 

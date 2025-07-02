@@ -3,22 +3,18 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const SignIn = ({ handleLogin }) => {
   const { setUserId, setUserEmail } = useCart();
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setData(prev => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
@@ -45,19 +41,15 @@ const SignIn = ({ handleLogin }) => {
     const formErrors = validate();
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(formErrors).length > 0) return;
 
     setLoading(true);
     try {
-      const res = await axios.post('https://flipko-springboot-1.onrender.com/api/login', data);
-
+      const res = await axios.post(`${baseUrl}/api/login`, data);
       if (res.status === 200 || res.status === 201) {
-        const userId = res.data.userId; 
-        const email = res.data.userId; 
-        if (!userId) {
-          throw new Error('No userId returned from login response');
+        const { userId, email } = res.data;
+        if (!userId || !email) {
+          throw new Error('Invalid response from server');
         }
         setUserId(userId);
         setUserEmail(email);
@@ -69,7 +61,7 @@ const SignIn = ({ handleLogin }) => {
         alert('Invalid email or password');
       }
     } catch (err) {
-      if (err.response && err.response.status === 401) {
+      if (err.response?.status === 401) {
         alert('Invalid email or password');
       } else {
         console.error('Login error:', err.message, err.response?.data);

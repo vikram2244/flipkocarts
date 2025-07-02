@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Speaker from '../../components/Home/Speaker';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const SpeakersCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -16,7 +17,7 @@ const SpeakersCard = ({ handleClick, productType }) => {
  const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/speakers', {
+      const res = await axios.get(`${baseUrl}/api/speakers`, {
         headers: {
           Accept: 'application/json',
         },
@@ -25,14 +26,14 @@ const SpeakersCard = ({ handleClick, productType }) => {
       setAcData(Array.isArray(res.data) ? res.data : res.data.data || []);
     } catch (err) {
       console.error('Error fetching data:', err);
-      setError('Failed to fetch computer data');
+      setError('Failed to fetch speakers data');
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id,productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -46,9 +47,6 @@ const SpeakersCard = ({ handleClick, productType }) => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
 
   const findGadget = acData.find(item => String(item.id) === String(id));
 

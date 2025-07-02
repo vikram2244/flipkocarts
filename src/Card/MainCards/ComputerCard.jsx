@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
-import MobilesPage from '../../components/Home/Computers';
 import Computers from '../../components/Home/Computers';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const ComputerCard = ({ handleClick }) => {
   const [computerData, setComputerData] = useState([]);
@@ -16,7 +16,7 @@ const ComputerCard = ({ handleClick }) => {
   const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/computers', {
+      const res = await axios.get(`${baseUrl}/api/computers`, {
         headers: {
           Accept: 'application/json',
         },
@@ -47,7 +47,7 @@ const ComputerCard = ({ handleClick }) => {
 
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id, productType]);
 
   const findGadget = computerData.find(item => String(item.id) === String(id));
 

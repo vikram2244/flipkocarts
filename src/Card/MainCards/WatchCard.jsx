@@ -20,7 +20,7 @@ const WatchCard = ({ handleClick, productType }) => {
 const handleData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('https://flipko-springboot-1.onrender.com/api/watches', {
+      const res = await axios.get(`${baseUrl}/api/watches`, {
         headers: {
           Accept: 'application/json',
         },
@@ -29,14 +29,14 @@ const handleData = async () => {
       setAcData(Array.isArray(res.data) ? res.data : res.data.data || []);
     } catch (err) {
       console.error('Error fetching data:', err);
-      setError('Failed to fetch computer data');
+      setError('Failed to fetch watch data');
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
     handleData();
-  }, [id]);
+  }, [id,productType]);
   const handleAddToCart = async (gadget) => {
       try {
         const item = {
@@ -50,9 +50,6 @@ const handleData = async () => {
         console.error('Error adding to cart in MainCard:', err);
       }
     };
-      useEffect(() => {
-        handleData();
-      }, [id, productType]);
 
   const findGadget = acData.find(item => String(item.id) === String(id));
 

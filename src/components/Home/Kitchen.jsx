@@ -3,6 +3,8 @@ import { kitchenData } from '../Data/kitchen'
 import Cardss from '../../Card/Cardss'
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Kitchen = ({handleClick}) => {
   const [kitchenData, setkitchenData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const Kitchen = ({handleClick}) => {
 
   const handleData = () => {
 
-    axios.get('https://flipko-springboot-1.onrender.com/api/kitchen', {
+    axios.get(`${baseUrl}/api/kitchen`, {
       headers: {
         Accept: 'application/json'
       }

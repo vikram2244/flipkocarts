@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect } from 'rea
 import axios from 'axios';
 import { useAuth } from '../Context/AuthProvider';
 import { PRODUCT_TYPES } from '../../../src/PRODUCT_TYPES';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const CartContext = createContext();
 
@@ -18,7 +19,7 @@ export const CartProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       console.log('Fetching cart items for userId:', userId);
-      const response = await axios.get(`https://flipko-springboot-1.onrender.com/api/user/${userId}`, {
+      const response = await axios.get(`${baseUrl}/api/user/${userId}`, {
         headers: { Accept: 'application/json' }
       });
       setCartItems(response.data || []);
@@ -34,12 +35,14 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     console.log('CartContext userId changed to:', userId);
+
     if (userId) {
       localStorage.setItem('userId', userId);
       fetchCartItems(userId);
     } else {
       localStorage.removeItem('userId');
     }
+
     if (userEmail) {
       localStorage.setItem('userEmail', userEmail);
     } else {
@@ -53,11 +56,14 @@ export const CartProvider = ({ children }) => {
       setError(null);
       const apiUserId = userId || 'guest';
       const productType = item.productType || 'mobiles';
+
       if (!PRODUCT_TYPES.includes(productType)) {
         throw new Error(`Invalid product type: ${productType}`);
       }
+
       console.log('Adding to cart:', { userId: apiUserId, productId: item.id, productType });
-      const response = await axios.post('https://flipko-springboot-1.onrender.com/api/add', { 
+
+      const response = await axios.post(`${baseUrl}/api/add`, {
         brand: item.brand,
         model: item.model,
         price: Number(item.price),
@@ -112,11 +118,18 @@ export const CartProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const apiUserId = userId || 'guest';
+
       if (!PRODUCT_TYPES.includes(item.productType)) {
         throw new Error(`Invalid product type: ${item.productType}`);
       }
-      console.log('Removing from cart:', { userId: apiUserId, productId: item.productId, productType: item.productType });
-      await axios.post('https://flipko-springboot-1.onrender.com/api/cart/update', {
+
+      console.log('Removing from cart:', {
+        userId: apiUserId,
+        productId: item.productId,
+        productType: item.productType
+      });
+
+      await axios.post(`${baseUrl}/api/cart/update`, {
         userId: apiUserId,
         productId: item.productId,
         productType: item.productType,
@@ -154,11 +167,23 @@ export const CartProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const apiUserId = userId || 'guest';
+
       if (!PRODUCT_TYPES.includes(item.productType)) {
         throw new Error(`Invalid product type: ${item.productType}`);
       }
-      console.log('Removing item completely:', { userId: apiUserId, productId: item.productId, productType: item.productType });
-      await axios.delete(`https://flipko-springboot-1.onrender.com/api/cart/remove?userId=${apiUserId}&productId=${item.productId}&productType=${item.productType}`, {
+
+      console.log('Removing item completely:', {
+        userId: apiUserId,
+        productId: item.productId,
+        productType: item.productType
+      });
+
+      await axios.delete(`${baseUrl}/api/cart/remove`, {
+        params: {
+          userId: apiUserId,
+          productId: item.productId,
+          productType: item.productType
+        },
         headers: { 'Content-Type': 'application/json' }
       });
 
@@ -176,13 +201,15 @@ export const CartProvider = ({ children }) => {
     }
   }, [userId]);
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const totalItems = cartItems.reduce(
     (total, item) => total + (item.quantity || 0),
     0
   );
-  const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
+
   return (
     <CartContext.Provider
       value={{
@@ -190,6 +217,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         removeItemCompletely,
+        clearCart,
         fetchCartItems,
         totalItems,
         loading,
@@ -197,8 +225,7 @@ export const CartProvider = ({ children }) => {
         userId,
         setUserId,
         userEmail,
-        setUserEmail,
-        handleAddToCart
+        setUserEmail
       }}
     >
       {children}
@@ -206,6 +233,4 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+export const useCart = () => useContext(CartContext);
