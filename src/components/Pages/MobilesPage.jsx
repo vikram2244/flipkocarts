@@ -4,7 +4,6 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
-
 const baseUrl = import.meta.env.VITE_API_URL;
 
 const MobilesPage = ({ handleClick, productType }) => {

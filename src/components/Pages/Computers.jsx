@@ -4,7 +4,8 @@ import Cardss from '../../Card/Cardss'
 import { Link, useParams } from 'react-router-dom'
 import { useCart } from '../Context/CartContext'
 import axios from 'axios'
-import Loading from '../Loading/Loading'
+import Loading from '../Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 
 const Computers = ({ handleClick,productType }) => {
@@ -15,7 +16,7 @@ const Computers = ({ handleClick,productType }) => {
 
   const handleData = () => {
     setLoading(true);
-    axios.get('https://flipko-springboot-1.onrender.com/api/computers', {
+    axios.get(`${baseUrl}/api/computers`, {
       headers: {
         Accept: 'application/json'
       }

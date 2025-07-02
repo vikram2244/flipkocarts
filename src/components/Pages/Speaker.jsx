@@ -4,6 +4,7 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Speaker = ({ handleClick, productType }) => {
   const [speakerData, setSpeakerData] = useState([]);
@@ -14,7 +15,7 @@ const Speaker = ({ handleClick, productType }) => {
   const handleData = () => {
     setLoading(true);
     axios
-      .get('https://flipko-springboot-1.onrender.com/api/speakers', {
+      .get(`${baseUrl}/api/speakers`, {
         headers: {
           Accept: 'application/json',
         },

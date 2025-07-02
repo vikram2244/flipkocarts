@@ -4,6 +4,7 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Watch = ({ handleClick, productType }) => {
   const [watchData, setWatchData] = useState([]);
@@ -14,7 +15,7 @@ const Watch = ({ handleClick, productType }) => {
   const handleData = () => {
     setLoading(true);
     axios
-      .get('https://flipko-springboot-1.onrender.com/api/watches', {
+      .get(`${baseUrl}/api/watches`, {
         headers: {
           Accept: 'application/json',
         },

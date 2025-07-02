@@ -4,6 +4,7 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Furniture = ({ handleClick, productType }) => {
   const [furnitureData, setFurnitureData] = useState([]);
@@ -15,7 +16,7 @@ const Furniture = ({ handleClick, productType }) => {
   const handleData = () => {
     setLoading(true);
     axios
-      .get('https://flipko-springboot-1.onrender.com/api/furniture', {
+      .get(`${baseUrl}/api/furniture`, {
         headers: {
           Accept: 'application/json',
         },
