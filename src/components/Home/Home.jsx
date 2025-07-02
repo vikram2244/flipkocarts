@@ -20,10 +20,9 @@ const Home = ({ handleClick }) => {
   const { email } = useParams();
 
   useEffect(() => {
-    // Simulate loading (or you can use real API fetching here)
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 30000); // 1 second delay
+    }, 40000);
 
     return () => clearTimeout(timer);
   }, []);
