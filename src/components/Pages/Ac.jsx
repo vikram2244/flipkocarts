@@ -3,6 +3,7 @@ import Cardss from '../../Card/Cardss';
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const Ac = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -60,7 +61,7 @@ const Ac = ({ handleClick, productType }) => {
     }
   };
 
-  if (loading) return <div>Loading product details...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
 
   return (

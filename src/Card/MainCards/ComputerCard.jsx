@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import MobilesPage from '../../components/Home/Computers';
 import Computers from '../../components/Home/Computers';
+import Loading from '../../components/Loading/Loading';
 
 const ComputerCard = ({ handleClick }) => {
   const [computerData, setComputerData] = useState([]);
@@ -51,7 +52,7 @@ const ComputerCard = ({ handleClick }) => {
   const findGadget = computerData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading computer details...</div>;
+    return <Loading />;
   }
 
   if (error) {

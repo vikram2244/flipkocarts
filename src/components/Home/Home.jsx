@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MobilesPage from './MobilesPage';
 import Computers from './Computers';
@@ -9,13 +9,28 @@ import Woman from './Woman';
 import Speaker from './Speaker';
 import Tv from './Tv';
 import Watch from './Watch';
-import ProData from './ProData';
+// import ProData from './ProData';
 import Books from './Books';
 import Kitchen from './Kitchen';
 import Ac from './Ac';
+import Loading from '../Loading/Loading';
 
 const Home = ({ handleClick }) => {
-  const { email } = useParams(); 
+  const [loading, setLoading] = useState(true);
+  const { email } = useParams();
+
+  useEffect(() => {
+    // Simulate loading (or you can use real API fetching here)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 30000); // 1 second delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

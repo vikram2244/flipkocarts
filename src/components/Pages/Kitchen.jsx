@@ -3,6 +3,7 @@ import Cardss from '../../Card/Cardss';
 import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const Kitchen = ({ handleClick, productType }) => {
   const [kitchenData, setKitchenData] = useState([]);
@@ -44,7 +45,7 @@ const Kitchen = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
-  if(loading) return <div>Loading Product Details.......</div>
+  if(loading) return <Loading />;
   if(error) return <div>{error}</div>
 
   return (

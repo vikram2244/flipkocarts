@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Watch from '../../components/Home/Watch';
+import Loading from '../../components/Loading/Loading';
 
 const WatchCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -56,7 +57,7 @@ const handleData = async () => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading watch details...</div>;
+    return <Loading />;
   }
 
   if (error) {

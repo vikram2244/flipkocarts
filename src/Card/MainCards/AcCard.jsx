@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import Ac from '../../components/Home/Ac';
+import Loading from '../../components/Loading/Loading';
 
 
 
@@ -54,7 +55,7 @@ const handleData = async () => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading AC details...</div>;
+    return <Loading />;
   }
 
   if (error) {

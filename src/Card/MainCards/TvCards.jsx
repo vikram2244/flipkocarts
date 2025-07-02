@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Tv from '../../components/Home/Tv';
+import Loading from '../../components/Loading/Loading';
 
 const TvCards = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -53,7 +54,7 @@ const TvCards = ({ handleClick, productType }) => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading TV details...</div>;
+    return <Loading />;
   }
 
   if (error) {

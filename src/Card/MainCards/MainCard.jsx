@@ -5,6 +5,7 @@ import { useCart } from '../../components/Context/CartContext';
 import { useAuth } from '../../components/Context/AuthProvider';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import MobilesPage from '../../components/Home/MobilesPage';
+import Loading from '../../components/Loading/Loading';
 
 const MainCard = ({ handleClick, productType }) => {
   const [data, setData] = useState([]);
@@ -73,7 +74,7 @@ const MainCard = ({ handleClick, productType }) => {
   const findGadget = data.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading product details...</div>;
+    return <Loading />;
   }
   if (error) {
     return <div>{error}</div>;

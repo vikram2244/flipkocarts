@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import Men from '../../components/Home/Men';
+import Loading from '../../components/Loading/Loading';
 
 const MensCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -50,7 +51,7 @@ const MensCard = ({ handleClick, productType }) => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading men's product details...</div>;
+    return <Loading />;
   }
 
   if (error) {

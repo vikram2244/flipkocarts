@@ -4,6 +4,7 @@ import Cardss from '../../Card/Cardss'
 import { Link, useParams } from 'react-router-dom'
 import { useCart } from '../Context/CartContext'
 import axios from 'axios'
+import Loading from '../Loading/Loading'
 
 
 const Computers = ({ handleClick,productType }) => {
@@ -44,7 +45,7 @@ const Computers = ({ handleClick,productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
-  if (loading) return <div>Loading product details...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
   return (
     <>

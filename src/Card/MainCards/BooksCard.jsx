@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import Books from '../../components/Home/Books';
+import Loading from '../../components/Loading/Loading';
 // import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 
 const BooksCard = ({ handleClick, productType }) => {
@@ -51,7 +52,7 @@ const handleData = async () => {
   const findGadget = bookData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading book details...</div>;
+    return <Loading />;
   }
 
   if (error) {

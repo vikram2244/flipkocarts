@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Speaker from '../../components/Home/Speaker';
+import Loading from '../../components/Loading/Loading';
 
 const SpeakersCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
@@ -52,7 +53,7 @@ const SpeakersCard = ({ handleClick, productType }) => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading speaker details...</div>;
+    return <Loading />;
   }
 
   if (error) {

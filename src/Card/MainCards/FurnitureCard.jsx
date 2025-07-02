@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Furniture from '../../components/Home/Furniture';
+import Loading from '../../components/Loading/Loading';
 
 const FurnitureCard = ({ handleClick, productType }) => {
   const [furnitureData, setFurnitureData] = useState([]);
@@ -53,7 +54,7 @@ const FurnitureCard = ({ handleClick, productType }) => {
   const findGadget = furnitureData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading furniture details...</div>;
+    return <Loading />;
   }
 
   if (error) {

@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Fridge from '../../components/Home/Fridge';
+import Loading from '../../components/Loading/Loading';
 
 const FridgeCard = ({ handleClick, productType }) => {
   const [fridgeData, setFridgeData] = useState([]);
@@ -52,7 +53,7 @@ const handleData = async () => {
   const findGadget = fridgeData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading fridge details...</div>;
+    return <Loading />;
   }
 
   if (error) {

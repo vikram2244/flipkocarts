@@ -4,6 +4,7 @@ import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
 import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Woman from '../../components/Home/Woman';
+import Loading from '../../components/Loading/Loading';
 
 
 const WomanCard = ({ handleClick, productType }) => {
@@ -53,7 +54,7 @@ const WomanCard = ({ handleClick, productType }) => {
   const findGadget = acData.find(item => String(item.id) === String(id));
 
   if (loading) {
-    return <div>Loading women\'s product details...</div>;
+    return <Loading />;
   }
 
   if (error) {
