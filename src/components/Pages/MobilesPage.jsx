@@ -4,30 +4,34 @@ import { useCart } from '../Context/CartContext';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
-const baseUrl = import.meta.env.VITE_API_URL;
 
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const MobilesPage = ({ handleClick, productType }) => {
   const [mobileData, setMobileData] = useState([]);
   const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+  const [error, setError] = useState('');
   const { id } = useParams();
 
   const handleData = () => {
     setLoading(true);
     axios
-      .get('https://flipko-springboot-1.onrender.com/api/mobiles', {
+      .get(`${baseUrl}/api/mobiles`, {
         headers: {
           Accept: 'application/json',
         },
       })
       .then((res) => {
-        console.log(baseUrl); 
+        console.log(baseUrl);
         console.log(res);
         setMobileData(res.data);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error(err);
+        setError('Failed to load mobile data. Please try again later.');
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -35,11 +39,12 @@ const MobilesPage = ({ handleClick, productType }) => {
   }, [id, productType]);
 
   const { addToCart } = useCart();
+
   const handleAddToCart = async (gadget) => {
     try {
       const item = {
         ...gadget,
-      productType: (productType ? productType.toLowerCase() : gadget.product?.toLowerCase())
+        productType: (productType ? productType.toLowerCase() : gadget.product?.toLowerCase())
       };
       console.log('Adding to cart from MainCard:', item);
       await addToCart(item);
@@ -48,6 +53,7 @@ const MobilesPage = ({ handleClick, productType }) => {
       console.error('Error adding to cart in MainCard:', err);
     }
   };
+
   if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
 
