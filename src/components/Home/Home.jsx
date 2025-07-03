@@ -22,7 +22,7 @@ const Home = ({ handleClick }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 40000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
