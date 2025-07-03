@@ -32,22 +32,22 @@ const ComputerCard = ({ handleClick }) => {
   };
 
   const handleAddToCart = async (gadget) => {
-  try {
-    const item = {
-      ...gadget,
-      productType: gadget.product?.toLowerCase() || 'computers' 
-    };
-    console.log('Adding to cart from ComputerCard:', item);
-    await addToCart(item);
-    handleClick?.();
-  } catch (err) {
-    console.error('Error adding to cart in ComputerCard:', err);
-  }
-};
+    try {
+      const item = {
+        ...gadget,
+        productType: gadget.product?.toLowerCase() || 'computers',
+      };
+      console.log('Adding to cart from ComputerCard:', item);
+      await addToCart(item);
+      handleClick?.();
+    } catch (err) {
+      console.error('Error adding to cart in ComputerCard:', err);
+    }
+  };
 
   useEffect(() => {
     handleData();
-  }, [id, productType]);
+  }, [id]); // ✅ fixed
 
   const findGadget = computerData.find(item => String(item.id) === String(id));
 
@@ -65,29 +65,27 @@ const ComputerCard = ({ handleClick }) => {
 
   return (
     <>
-    <div className="container">
-      <div className="card-footer">
-        <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
-          <button>Edit</button>
-        </Link>
+      <div className="container">
+        <div className="card-footer">
+          <Link to={`/editadmin/${findGadget.product}/${findGadget.id}`}>
+            <button>Edit</button>
+          </Link>
+        </div>
+        <div className="img-container">
+          <img src={findGadget.image} alt={findGadget.model || 'Computer'} />
+        </div>
+        <div className="mbl-brand">{findGadget.brand}</div>
+        <div className="mbl-model">{findGadget.model}</div>
+        <div className="mbl-price">{findGadget.price}</div>
+        <div className="mbl-desc">{findGadget.description}</div>
+        <div className="mbl-desc">{findGadget.category}</div>
+        <div>
+          <button onClick={() => handleAddToCart(findGadget)}>Add to Cart</button>
+        </div>
       </div>
-      <div className="img-container">
-        <img src={findGadget.image} alt={findGadget.model || 'Computer'} />
-      </div>
-      <div className="mbl-brand">{findGadget.brand}</div>
-      <div className="mbl-model">{findGadget.model}</div>
-      <div className="mbl-price">{findGadget.price}</div>
-      <div className="mbl-desc">{findGadget.description}</div>
-      <div className="mbl-desc">{findGadget.category}</div>
       <div>
-        <button onClick={() => handleAddToCart(findGadget)}>
-          Add to Cart
-        </button>
+        <Computers />
       </div>
-    </div>
-    <div>
-      <Computers />
-    </div>
     </>
   );
 };
