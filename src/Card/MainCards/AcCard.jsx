@@ -13,22 +13,25 @@ const AcCard = ({ handleClick, productType }) => {
   const { addToCart } = useCart();
 
   const handleData = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${baseUrl}/api/ac`, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-      console.log('API Response:', res.data);
-      setAcData(Array.isArray(res.data) ? res.data : res.data.data || []);
-    } catch (err) {
-      console.error('Error fetching data:', err);
-      setError('Failed to fetch AC data');
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    setLoading(true);
+    setError(null); // Reset error on new fetch
+    const res = await axios.get(`${baseUrl}/api/ac`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    
+    // More robust data validation
+    const data = res.data?.data || res.data || [];
+    setAcData(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    setError(err.response?.data?.message || 'Failed to fetch AC data');
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     handleData();

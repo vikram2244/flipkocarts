@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../../components/Context/CartContext';
 import axios from 'axios';
-import { PRODUCT_TYPES } from '../../PRODUCT_TYPES';
 import Watch from '../../components/Home/Watch';
 import Loading from '../../components/Loading/Loading';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const WatchCard = ({ handleClick, productType }) => {
   const [acData, setAcData] = useState([]);
