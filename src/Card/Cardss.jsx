@@ -34,7 +34,6 @@ const Cardss = ({ id, name, product, title, description, amount, image, handleCl
           Add to Cart
         </button>
       </div>
-      {mode === 'admin' && (
         <div className="card-footer">
           <button className="card-button" onClick={handleDelete}>
             Delete
@@ -43,7 +42,6 @@ const Cardss = ({ id, name, product, title, description, amount, image, handleCl
             Edit
           </Link>
         </div>
-      )}
     </div>
   );
 };
